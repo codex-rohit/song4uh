@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Girl.</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/billabong" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Animated Gradient Background -->
+    <div class="gradient-background"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <h1 class="animate__animated animate__fadeInDown animate__repeat-3">For My Girl.</h1>
+            <p class="subtitle animate__animated animate__fadeInUp">This one's for you. 💜</p>
+        </header>
+
+        <!-- Song Player -->
+        <div class="song-player animate__animated animate__fadeIn">
+            <button id="play-button">🎵 Click to Play the Song</button>
+            <audio id="lofi-song" loop>
+                <source src="song.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- Memories Section -->
+        <section class="memories">
+            <h2 class="animate__animated animate__fadeIn">Our Memories</h2>
+            <div class="memory-grid">
+                <div class="memory-item animate__animated animate__fadeInLeft">
+                    <img src="memory1.jpg" alt="Memory 1">
+                    <p>vaade ka pta nhi, lekin jab tak zindagi rahegi tab tak aapake saath chalenge .</p>
+                </div>
+                <div class="memory-item animate__animated animate__fadeInUp">
+                    <img src="memory2.jpg" alt="Memory 2">
+                    <p>Samajh nahi aata, tum zakham ho ya shifa,
+Kabhi dukh dete ho, kabhi ban jaate ho dawa.</p>
+                </div>
+                <div class="memory-item animate__animated animate__fadeInRight">
+                    <img src="memory3.jpg" alt="Memory 3">
+                    <p>Forever grateful for you.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="animate__animated animate__fadeInUp">
+        <p>Made with 💜 by Rohit</p>
+    </footer>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.1/dist/typeit.min.js"></script>
+
+    <!-- Custom Script -->
+    <script>
+        // Confetti on Page Load
+        window.onload = function() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        };
+
+        // Confetti on Play Button Click
+        const playButton = document.getElementById('play-button');
+        const audio = document.getElementById('lofi-song');
+
+        playButton.addEventListener('click', () => {
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
+            audio.play();
+            playButton.textContent = "🎵 Now Playing...";
+        });
+
+        // Parallax Effect for Memory Items
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.memory-item').forEach((item, index) => {
+            gsap.from(item, {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    scrub: 1,
+                }
+            });
+        });
+
+        // Handwritten Font Animation
+        document.querySelectorAll('.memory-item p').forEach((message) => {
+            new TypeIt(message, {
+                strings: message.textContent,
+                speed: 50,
+                startDelay: 500,
+                lifeLike: true,
+                cursor: false,
+            }).go();
+        });
+    </script>
+</body>
+</html>
